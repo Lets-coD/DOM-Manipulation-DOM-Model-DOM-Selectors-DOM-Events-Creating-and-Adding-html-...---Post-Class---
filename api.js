@@ -1,34 +1,237 @@
-export const database = [
-    { name: '21 Jump Street', imgUrl: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRLCqM8Ispa4waG8tNLPdy6rtiJFOEZUZxdzP-y_BQzfgo953Gb' },
-    { name: '22 Jump Street', imgUrl: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQaoamRKQDYxVXvXg6LUl6brQmMdFbpZvOQ2G_nD6u5uq16tiVh' },
-    { name: 'Cars', imgUrl: 'https://upload.wikimedia.org/wikipedia/en/3/34/Cars_2006.jpg' },
-    { name: 'Cars 2', imgUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7f/Cars_2_Poster.jpg' },
-    { name: 'Cars 3', imgUrl: 'https://lumiere-a.akamaihd.net/v1/images/p_cars3_19643_3ab8aca1.jpeg' }
-]
-export const availibility = {
-    '21 Jump Street': [1, 2, 5, 8, 9,19,22,20,11],
-    '22 Jump Street': [1, 2, 3, 5, 6,10,11,12,13,14,15,16,17, 24],
-    'Cars': [1, 2, 3, 4, 5, 6,15,16,17,18,19,20,21,22,23,24],
-    'Cars 2': [4, 6, 8,10,11,12,13,14,15,16],
-    'Cars 3': [3, 5, 7, 9,20,21,12,13,19,24]
-}
-const fetchMovieList = async () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(database)
-        }, 500)
-    })
+const loader = document.querySelector("#loading");
+
+//const textOutput2 = document.querySelector(".booker");
+
+
+
+//var moviename=""
+// showing loading
+function displayLoading() {
+    loader.classList.add("display");
+    // to stop loading after some time
+    //    alert("jlkfj");
+    setTimeout(() => {
+        loader.classList.remove("display");
+    }, 500);
 }
 
-const fetchMovieAvailability = async (movieName) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            for (const m in availibility) {
-                if (m === movieName) resolve(availibility[m])
+function hideLoading() {
+    loader.classList.remove("display");
+}
+
+var url = "https://employeedetails.free.beeceptor.com/my/api/path";
+
+async function fetchHandler() {
+      var booker=document.querySelector(".booker");
+      booker.style.display = "none";
+      var buttonitem=document.querySelector("#book-ticket-btn");
+      buttonitem.style.display = "none";
+      var seatselector=document.querySelector("#confirm-purchase");
+      seatselector.style.display = "none";
+      var success=document.querySelector("#Success");
+      success.style.display = "none";
+
+    displayLoading()
+    let url='user.json'
+    try {
+    var ans={};
+//    hideLoading()
+    let res =  fetch(url).then(response=>response.json()).then(response=>displaymovie(response));
+
+//        console.log("uyrs",ans[0]);
+//        const artistIds = await fetch(...).then(...);
+//        textOutput.innerText = ans;
+//        return await res.json();
+    } catch (error) {
+//    textOutput.innerText = error;
+        console.log("no",error);
+    }
+}
+ async function fetchMovieAvailability (moviename) {
+      var booker=document.querySelector(".booker");
+      booker.style.display = "none";
+      var buttonitem=document.querySelector("#book-ticket-btn");
+      buttonitem.style.display = "none";
+      var seatselector=document.querySelector("#confirm-purchase");
+      seatselector.style.display = "none";
+      var success=document.querySelector("#Success");
+      success.style.display = "none";
+
+//    displayLoading()
+    let url='availability.json'
+    try {
+var griditem=document.querySelector(".booker");
+      if (griditem.style.display === "block") {
+        griditem.style.display = "none";
+      } else {
+        griditem.style.display = "block";
+      }
+//    hideLoading()
+    let res =  fetch(url).then(response=>response.json()).then(response=>fillseat(response,moviename));
+
+    } catch (error) {
+//    textOutput.innerText = error;
+        console.log("no",error);
+    }
+}
+function displaymovie(response){
+var count=0;
+response.forEach((item)=>{
+    count++;
+    var ss="#moviename"+count;
+    console.log(ss)
+    const textOutput = document.querySelector(ss);
+    textOutput.innerText = item.name;
+});
+}
+
+function fillseat(response,moviename){
+response.forEach((item)=>{
+//alert(Object.values(moviename))
+//alert(item.name)
+    if(item.name==Object.values(moviename)){
+//        alert(item.name)
+        var ancestor=document.getElementById("booking_grid1");
+        var descendents = ancestor.getElementsByTagName("div");
+//        alert(descendents)
+var totalcount=0;
+//var seatselected=[]
+var passed_in_array = [];
+
+      var buttonitem=document.querySelector("#book-ticket-btn");
+      buttonitem.style.display = "none";
+      var seatselector=document.querySelector("#confirm-purchase");
+      seatselector.style.display = "none";
+      var success=document.querySelector("#Success");
+      success.style.display = "none";
+        var e;
+        var ar=item.seat.map((item)=>parseInt(item))
+        for (i = 0; i < descendents.length; ++i) {
+            let count=0;
+            e = descendents[i];
+            let selected=parseInt(descendents[i].innerText)
+//            alert(selected)
+            if(ar.includes(selected)){
+                e.className = "available-seat";
+                e.addEventListener('click',(event)=>{
+                count++;
+//                border:4px outset rgb(0, 0, 0);
+                  var clickedOn = event.target;
+//                  // for HTML
+                    if(count%2==1){
+                    totalcount++;
+                    passed_in_array.push(selected)
+                    clickedOn.style.border = '4px outset rgb(0, 0, 0)';
+                    }else{
+                    totalcount--
+                    passed_in_array = removeElement(passed_in_array, selected);
+                    clickedOn.style.border = 'none';
+                    }
+        if(totalcount>0){
+            buttonitem.style.display = "block";
+            buttonitem.addEventListener('click',(event)=>{
+            console.log(passed_in_array);
+            let ss=""
+            ss=passed_in_array.reduce((prev,item)=> prev+","+item,"");
+            console.log(ss)
+            var griditem=document.querySelector(".booker");
+            griditem.style.display = "none";
+            var showseat=document.querySelector("#showseat");
+            showseat.innerText="Confirm your booking for seat numbers:"+ss;
+
+             seatselector.style.display = "block";
+             buttonitem.style.display = "none";
+
+             var purchase=document.querySelector("#purchase");
+             purchase.addEventListener('click',(event)=>{
+             seatselector.style.display = "none";
+             success.style.display = "block";
+             var detailsseat=document.querySelector("#detailsseat");
+             var detailsphonenumber=document.querySelector("#detailsphonenumber");
+             var detailsemail=document.querySelector("#detailsemail");
+             detailsemail.innerText="Email: "+document.querySelector("#email").value;
+             detailsphonenumber.innerText="Phone number: "+document.querySelector("#phone").value;
+            detailsseat.innerText="Seats: "+ss;
+             })
+
+            });
+        }else{
+        buttonitem.style.display = "none";
+        }
+                })
+            }else{
+            e.className = "unavailable-seat";
             }
-            resolve([])
-        }, 500)
-    })
+        }
+
+        ancestor=document.getElementById("booking_grid2");
+        descendents = ancestor.getElementsByTagName("div");
+
+        for (i = 0; i < descendents.length; ++i) {
+        let count=0;
+            e = descendents[i];
+            let selected=parseInt(descendents[i].innerText)
+            if(ar.includes(selected)){
+                e.className = "available-seat";
+                e.addEventListener('click',(event)=>{
+                count++;
+                  var clickedOn = event.target;
+                    if(count%2==1){
+                    totalcount++;
+                    passed_in_array.push(selected)
+                    clickedOn.style.border = '4px outset rgb(0, 0, 0)';
+                    }else{
+                    totalcount--;
+                    passed_in_array = removeElement(passed_in_array, selected);
+                    clickedOn.style.border = 'none';
+                    }
+        if(totalcount>0){
+            buttonitem.style.display = "block";
+            buttonitem.addEventListener('click',(event)=>{
+            console.log(passed_in_array);
+            let ss=""
+            ss=passed_in_array.reduce((prev,item)=> prev+item+",","");
+            console.log(ss)
+            var griditem=document.querySelector(".booker");
+            griditem.style.display = "none";
+            var showseat=document.querySelector("#showseat");
+            showseat.innerText="Confirm your booking for seat numbers:"+ss
+
+             seatselector.style.display = "block";
+             buttonitem.style.display = "none";
+
+             var purchase=document.querySelector("#purchase");
+             purchase.addEventListener('click',(event)=>{
+             seatselector.style.display = "none";
+             success.style.display = "block";
+             var detailsseat=document.querySelector("#detailsseat");
+             var detailsphonenumber=document.querySelector("#detailsphonenumber");
+             var detailsemail=document.querySelector("#detailsemail");
+             detailsemail.innerText="Email: "+document.querySelector("#email").value;
+             detailsphonenumber.innerText="Phone number: "+document.querySelector("#phone").value;
+            detailsseat.innerText="Seats: "+ss;
+             })
+
+            });
+        }else{
+        buttonitem.style.display = "none";
+        }
+                })
+            }else{
+            e.className = "unavailable-seat";
+            }
+        }
+        let removeElement = (array, n) => {
+          let newArray = [];
+
+          for (let i = 0; i < array.length; i++) {
+            if (array[i] !== n) {
+              newArray.push(array[i]);
+            }
+          }
+          return newArray;
+        };
+    }
+})
 }
 
-export { fetchMovieList, fetchMovieAvailability }
