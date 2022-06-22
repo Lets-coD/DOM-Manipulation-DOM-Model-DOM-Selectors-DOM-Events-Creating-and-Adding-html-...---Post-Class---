@@ -5,7 +5,7 @@
 ![](Capture3.PNG)
 ![](Capture4.PNG)
 
-Hosted on : moviebookingjs.netlify.app
+Hosted on : https://moviebookingjs.netlify.app
 
 1.Write the project description
 In this project i have made a UI design for Movie Ticket System .
