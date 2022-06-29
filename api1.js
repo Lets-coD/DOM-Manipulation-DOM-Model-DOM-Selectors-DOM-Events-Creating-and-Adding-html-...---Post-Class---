@@ -125,8 +125,13 @@ function fillseat(response,moviename){
       var buttonitem=document.querySelector("#book-ticket-btn");
       buttonitem.style.display = "none";
       passed_in_array.length=0
-                                              var success=document.querySelector("#Success");
-                                              success.style.display = "none";
+      var element = document.getElementById("booking_grid2");
+      while ( element.firstChild ) element.removeChild( element.firstChild );
+      var element = document.getElementById("booking_grid1");
+      while ( element.firstChild ) element.removeChild( element.firstChild );
+
+      var success=document.querySelector("#Success");
+      success.style.display = "none";
 
       var a1=[1,2,3,4,5,6,7,8,9,10,11,12]
       var a2=[13,14,15,16,17,18,19,20,21,22,23,24]
