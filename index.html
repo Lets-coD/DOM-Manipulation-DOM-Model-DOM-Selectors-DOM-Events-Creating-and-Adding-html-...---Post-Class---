@@ -3,42 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>project5</title>
-
+    <script src="api1.js" type="text/javascript"></script>
     <style>
-.logo  {
+
+
+
+
+<!--shashank-->
+#linkflex{
+    display: flex;
+    justify-content:space-evenly;
+    flex-direction: row;
+}
+nav{
+    padding: 12px 16px;
+    color: white;
     display: flex;
     justify-content:space-between;
     flex-direction: row;
-    padding:12px 16px;
-    color:white;
-    background-color:blue;
 }
 .movie-img-wrapper{
 background-image: url('images.jpg');
 width:275px;
 height:183px;
-}
-#loading {
-    width: 2rem;
-    height: 2rem;
-    border: 5px solid #f3f3f3;
-    border-top: 6px solid #9c41f2;
-    border-radius: 100%;
-    margin: auto;
-    visibility: hidden;
-    animation: spin 1s infinite linear;
-}
-#loading.display {
-    visibility: visible;
-}
-.booker{
-<!--visibility: none;-->
+display:none;
 }
 .booker-grid-holder{
 display: grid;
 grid-template-columns: 50% 50%;
 grid-auto-flow: row;
-
 }
 .booking-grid {
   width: 600px;
@@ -47,113 +40,91 @@ grid-auto-flow: row;
   grid-template-columns: repeat(6, 100px);
   grid-template-rows: 100px 100px 100px;
   grid-auto-flow: column;
-
 }
-.grid-item {
-  border:4px outset rgb(0, 0, 0)
-}
-
 .unavailable-seat{
-  background-color: red;
+  background-color:red;
   color: #fff;
   padding: 20px;
   font-size: 150%;
-
+  border:0px;
 }
 .available-seat{
-  background-color: green;
+  background-color:green;
   color: #fff;
   padding: 20px;
   font-size: 150%;
+  border:0px;
+}
+.selected-seat {
+  border:4px outset rgb(0, 0, 0)
+}
+.booker{
+}
+#seatSelection{
+display: none;
 }
 #confirm-purchase{
-<!--visibility: hidden;-->
+display: none;
 }
 #book-ticket-btn{
-<!--visibility: hidden;-->
+<!--display: none;-->
 }
 #Success{
-<!--visibility: hidden;-->
-}
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
+display: none;
 }
 
 </style>
 </head>
-<body onload="fetchHandler()">
+<body  id="start">
+<header>
 <nav >
-    <div class="logo">
-        <a href="#">Movie Bank</a>
-    </div>
-</nav>
-<div id="loading"></div>
-<div>
-    <a class="movie-link" href="#">
-        <div class="movie" data-d="moviename">
-            <div class="movie-img-wrapper" onclick="fetchMovieAvailability({search: document.getElementById('moviename1').innerHTML});">
+            <div class="logo">
+                <img src="logo.png">
             </div>
+            <ul id="linkflex">
+                <li>
+                    <a href="#">Movie</a>
+                </li>
+            </ul>
+</nav>
+</header>
+<main>
+    <div id="movie-holder">
+        <a class="movie-link" href="#">
+            <div class="movie" data-d="moviename">
+                <div class="movie-img-wrapper" onclick="fetchMovieAvailability({search: document.getElementById('moviename1').innerHTML});">
+<!--                    onclick="fetchMovieAvailability({search: document.getElementById('moviename1').innerHTML});"-->
+                </div>
                 <h4 id="moviename1"></h4>
             </div>
 
-    </a>
-</div>
+        </a>
+    </div>
+    <div class="booker" >
+        <div id="seatSelection">
+        <h3>Seat Selector</h3>
+        <div class="booker-grid-holder">
+            <div class="booking-grid" id="booking_grid1">
 
-<div class="booker" >
-    <div class="booker-grid-holder">
-    <div class="booking-grid" id="booking_grid1">
-        <div class="grid-item" id="booking-grid-1">1</div>
-        <div class="grid-item" id="booking-grid-2">2</div>
-        <div class="grid-item" id="booking-grid-3">3</div>
-        <div class="grid-item" id="booking-grid-4">4</div>
-        <div class="grid-item" id="booking-grid-5">5</div>
-        <div class="grid-item" id="booking-grid-6">6</div>
-        <div class="grid-item" id="booking-grid-7">7</div>
-        <div class="grid-item" id="booking-grid-8">8</div>
-        <div class="grid-item" id="booking-grid-9">9</div>
-        <div class="grid-item" id="booking-grid-10">10</div>
-        <div class="grid-item" id="booking-grid-11">11</div>
-        <div class="grid-item"id="booking-grid-12">12</div>
+            </div>
+            <div class="booking-grid" id="booking_grid2">
+
+            </div>
+        </div>
+        <div><button id="book-ticket-btn">click</button></div>
+        </div>
+
+        <div id="confirm-purchase">
+
+        </div>
+        <div id="Success">
+            Booking details
+            <div id="detailsseat"></div>
+            <div id="detailsphonenumber"></div>
+            <div id="detailsemail"></div>
+        </div>
     </div>
-    <div class="booking-grid" id="booking_grid2">
-        <div class="grid-item" id="booking-grid-13">13</div>
-        <div class="grid-item" id="booking-grid-14">14</div>
-        <div class="grid-item" id="booking-grid-15">15</div>
-        <div class="grid-item" id="booking-grid-16">16</div>
-        <div class="grid-item" id="booking-grid-17">17</div>
-        <div class="grid-item" id="booking-grid-18">18</div>
-        <div class="grid-item" id="booking-grid-19">19</div>
-        <div class="grid-item" id="booking-grid-20">20</div>
-        <div class="grid-item" id="booking-grid-21">21</div>
-        <div class="grid-item" id="booking-grid-22">22</div>
-        <div class="grid-item" id="booking-grid-23">23</div>
-        <div class="grid-item" id="booking-grid-24">24</div>
-    </div>
-    </div>
-</div>
-<div id="confirm-purchase">
-<h3 id="showseat"></h3>
-        <form id="customer-detail-form">
-            <label  >Email</label>
-            <input type="text" id="email" required></input>
-            <label >Phone Number</label>
-            <input type="number" id="phone" required></input>
-            <button type="submit"id="purchase">Purchase</button>
-        </form>
-</div>
-<div id="Success">
-    Booking details
-    <div id="detailsseat"></div>
-    <div id="detailsphonenumber"></div>
-    <div id="detailsemail"></div>
-</div>
-<div><button id="book-ticket-btn">click</button></div>
-<script src="api.js" type="text/javascript"></script>
+</main>
+
 </body>
 </html>
