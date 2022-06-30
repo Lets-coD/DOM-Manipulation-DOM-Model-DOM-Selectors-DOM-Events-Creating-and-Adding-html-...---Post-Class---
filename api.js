@@ -1,70 +1,65 @@
 window.onload = () => {
 passed_in_array=[]
    displayLoading();
-                                            document.getElementById("book-ticket-btn").addEventListener('click',(event)=>{
-                                              var success=document.querySelector("#Success");
-                                              success.style.display = "none";
-                                            var element = document.getElementById("booking_grid2");
-                                            while ( element.firstChild ) element.removeChild( element.firstChild );
-                                            var element = document.getElementById("booking_grid1");
-                                            while ( element.firstChild ) element.removeChild( element.firstChild );
+document.getElementById("book-ticket-btn").addEventListener('click',(event)=>{
+    var success=document.querySelector("#Success");
+    success.style.display = "none";
+    var element = document.getElementById("booking_grid2");
+    while ( element.firstChild ) element.removeChild( element.firstChild );
+    var element = document.getElementById("booking_grid1");
+    while ( element.firstChild ) element.removeChild( element.firstChild );
 
-                                            console.log(passed_in_array);
-                                            let ss=""
-                                            ss=passed_in_array.reduce((prev,item)=> prev+item+",","");
-                                            console.log(ss)
+    console.log(passed_in_array);
+    let ss=""
+    ss=passed_in_array.reduce((prev,item)=> prev+item+",","");
+    console.log(ss)
 
-                                            seatSelection.style.display = "none";
-                                            ss=ss.substring(0,ss.length-1)
-                                            console.log(ss)
-                                            var confirmpurchase=document.querySelector("#confirm-purchase");
-                                            confirmpurchase.style.display = "block";
-                                            var conf = document.getElementById("confirm-purchase");
-                                            var h3 = document.createElement("h3");
-                                            h3.innerHTML="Confirm your booking for seat numbers:"+ss
-                                            conf.appendChild(h3)
-                                            var f = document.createElement("form");
-                                            f.setAttribute("id","customer-detail-form");
-                                            var newLabel1 = document.createElement("Label");
-                                            newLabel1.innerHTML = "Email";
-                                            f.appendChild(newLabel1)
-                                            var in1 = document.createElement("input");
-                                            in1.setAttribute("id","email")
-                                            in1.setAttribute("type", "text");
-                                            in1.setAttribute("required","");
-                                            f.appendChild(in1)
-                                            var newLabel2 = document.createElement("Label");
-                                            newLabel2.innerHTML = "Phone Number";
-                                            f.appendChild(newLabel2)
-                                            var in2 = document.createElement("input");
-                                            in2.setAttribute("id","phone")
-                                            in2.setAttribute("type", "text");
-                                            in2.setAttribute("required", "");
-                                            f.appendChild(in2)
-                                            var bu = document.createElement("input");
-                                            bu.setAttribute("type", "submit");
-                                            bu.setAttribute("value", "Submit");
-                                            f.appendChild(bu)
-                                            conf.appendChild(f)
-                                            bu.addEventListener('click',(event)=>{
-//                                            confirmpurchase.style.display = "none";
-
-                                            success.style.display = "block";
-                                            var detailsseat=document.querySelector("#detailsseat");
-                                            var detailsphonenumber=document.querySelector("#detailsphonenumber");
-                                            var detailsemail=document.querySelector("#detailsemail");
-                                            detailsemail.innerText="Email: "+document.querySelector("#email").value;
-                                            detailsphonenumber.innerText="Phone number: "+document.querySelector("#phone").value;
-                                            detailsseat.innerText="Seats: "+ss;
-                                            var element = document.getElementById("customer-detail-form");
-                                            while ( element.firstChild ) element.removeChild( element.firstChild );
-
-                                            var element = document.getElementById("confirm-purchase");
-                                            while ( element.firstChild ) element.removeChild( element.firstChild );
-
-
-                                            })
-                                            })
+    seatSelection.style.display = "none";
+    ss=ss.substring(0,ss.length-1)
+    console.log(ss)
+    var confirmpurchase=document.querySelector("#confirm-purchase");
+    confirmpurchase.style.display = "block";
+    var conf = document.getElementById("confirm-purchase");
+    var h3 = document.createElement("h3");
+    h3.innerHTML="Confirm your booking for seat numbers:"+ss
+    conf.appendChild(h3)
+    var f = document.createElement("form");
+    f.setAttribute("id","customer-detail-form");
+    var newLabel1 = document.createElement("Label");
+    newLabel1.innerHTML = "Email";
+    f.appendChild(newLabel1)
+    var in1 = document.createElement("input");
+    in1.setAttribute("id","email")
+    in1.setAttribute("type", "text");
+    in1.setAttribute("required","");
+    f.appendChild(in1)
+    var newLabel2 = document.createElement("Label");
+    newLabel2.innerHTML = "Phone Number";
+    f.appendChild(newLabel2)
+    var in2 = document.createElement("input");
+    in2.setAttribute("id","phone")
+    in2.setAttribute("type", "text");
+    in2.setAttribute("required", "");
+    f.appendChild(in2)
+    var bu = document.createElement("input");
+    bu.setAttribute("type", "submit");
+    bu.setAttribute("value", "Submit");
+    f.appendChild(bu)
+    conf.appendChild(f)
+    bu.addEventListener('click',(event)=>{
+    success.style.display = "block";
+    var detailsseat=document.querySelector("#detailsseat");
+    var detailsphonenumber=document.querySelector("#detailsphonenumber");
+    var detailsemail=document.querySelector("#detailsemail");
+    detailsemail.innerText="Email: "+document.querySelector("#email").value;
+    detailsphonenumber.innerText="Phone number: "+document.querySelector("#phone").value;
+    detailsseat.innerText="Seats: "+ss;
+    var element = document.getElementById("customer-detail-form");
+    while ( element.firstChild ) element.removeChild( element.firstChild );
+    var element = document.getElementById("confirm-purchase");
+    while ( element.firstChild ) element.removeChild( element.firstChild );
+})
+})
 };
 
 
